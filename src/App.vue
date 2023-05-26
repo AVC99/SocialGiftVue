@@ -7,4 +7,7 @@
       Vue and Tailwind CSS in action
     </p>
  </div>
+ <li class="text-gray-500 text-lg" href="/src/views/Login.vue" >
+     Login
+    </li>
 </template>
