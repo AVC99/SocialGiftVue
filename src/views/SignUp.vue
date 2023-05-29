@@ -16,7 +16,6 @@
                        <!--Name Input-->
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-white ">Name</label>
-                            <!--TODO: Check this -->
                             <input type="name" name="name" id="name" v-model="name"
                                 class="bg-tertiary placeholder-gray-400 text-white sm:text-sm rounded-xl block w-full p-2.5" 
                                 placeholder="Name" required>
@@ -52,7 +51,7 @@
                         <!--Log in text-->
                         <p class="text-sm flex justify-center font-light text-gray-500 dark:text-gray-400">
                             Already have an account?
-                            <router-link to="./Login.vue" class="font-medium text-primary hover:underline dark:text-primary"> Log in</router-link>
+                            <router-link to="/login" class="font-medium text-primary hover:underline dark:text-primary"> Log in</router-link>
                         </p>
                     </form>
                 </div>

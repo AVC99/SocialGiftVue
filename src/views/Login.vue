@@ -34,7 +34,7 @@
                         <p class="text-sm flex justify-center font-light text-gray-500 dark:text-gray-400">
                             Don’t have an account yet?  
                             <!-- TODO: LEARN AND FIX THE VUE ROUTER-->
-                            <router-link to="signup" class="font-medium text-primary hover:underline dark:text-primary"> Sign up</router-link>
+                            <router-link to="/signup" class="font-medium text-primary hover:underline dark:text-primary"> Sign up</router-link>
                         </p>
                     </form>
                 </div>
@@ -80,7 +80,7 @@ export default {
 
                     console.log(JSON.stringify(response));
                     // put the token in the local storage
-                    localStorage.setItem('token', response.data.accessToken);
+                    localStorage.setItem('accessToken', response.data.accessToken);
                     console.log(response.data.accessToken);
                 })
                 .catch((error) => {
