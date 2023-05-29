@@ -1,13 +1,15 @@
 <template>
-  <div class="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
-    <p class="text-3xl text-gray-700 font-bold mb-5">
-      Welcome!
-    </p>
-    <p class="Intro text-gray-500 text-lg">
-      Vue and Tailwind CSS in action
-    </p>
- </div>
- <li class="text-gray-500 text-lg" href="/src/views/Login.vue" >
-     Login
-    </li>
+  <div id="app">
+    <main>
+      <router-view />
+    </main>
+   
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+};
+</script>
+
