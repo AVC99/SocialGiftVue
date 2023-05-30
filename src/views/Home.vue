@@ -1,9 +1,9 @@
 <template>
-    <body class="h-screen overflow-hidden bg-background flex ">
+    <body class="h-screen overflow-hidden bg-background flex divide-x divide-white">
         <!--Header-->
         <header></header>
         <!--Left Section / menu Bar -->
-        <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-1/4 bg-tertiary h-screen max-w-s ">
+        <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-1/4 bg-transparent h-screen max-w-s">
             <div class="text-white pr-10 py-1 h-auto w-auto">
                 <div  class="flex items-center mb-6 text-2xl font-semibold text-white">
                     <img class="w-8 h-8 mr-2 " src="src\assets\appLogo.svg" alt="logo">
