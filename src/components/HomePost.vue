@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-sm rounded-xl overflow-hidden shadow-lg bg-tertiary">
+    <div class="max-w-lg  rounded-xl overflow-hidden shadow-lg bg-tertiary">
         <!--Cart title with profile picture and username-->
         <div>
             <div class="flex items-center">
@@ -39,15 +39,18 @@ export default {
     props: {
         user_image: {
             type: String,
-            required: true
+            default: 'https://freesvg.org/img/abstract-user-flat-4.png'
         },
         username: {
             type: String,
-            required: true
+            required: true,
+            default: 'Username'
         },
         email: {
             type: String,
-            required: true
+            required: true,
+             default: 'email'
+
         },
         product_image: {
             type: String,
