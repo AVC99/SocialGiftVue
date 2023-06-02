@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-lg  rounded-xl overflow-hidden shadow-lg bg-tertiary">
+    <div class="max-w-lg rounded-xl overflow-hidden shadow-lg bg-tertiary">
         <!--Cart title with profile picture and username-->
         <div>
             <div class="flex items-center">
