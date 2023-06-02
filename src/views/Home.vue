@@ -3,7 +3,7 @@
         <!--Header-->
         <header></header>
         <!--Left Section / menu Bar -->
-        <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-1/5 bg-transparent h-screen max-w-s">
+        <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-2/12 bg-transparent h-screen max-w-s">
             <div class="text-white pr-10 py-1 h-auto w-auto">
                 <div class="flex items-center mb-6 text-2xl font-semibold text-white">
                     <img class="w-8 h-8 mr-2 " src="src\assets\appLogo.svg" alt="logo">
@@ -15,11 +15,11 @@
                         <font-awesome-icon icon="fa-solid fa-house" class="mr-4 h-6 w-6" />
                         Home
                     </router-link>
-                    <a href="#"
+                    <router-link to="/messages" href="#"
                         class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-full hover:bg-primary hover:text-black">
                         <font-awesome-icon icon="fa-solid fa-message" class="mr-4 h-6 w-6" />
                         Messages
-                    </a>
+                    </router-link>
                     <router-link to="/profile"
                         class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-full hover:bg-primary hover:text-black">
                         <font-awesome-icon icon="fa-solid fa-user" class="mr-4 h-6 w-6" />
@@ -40,12 +40,14 @@
         </section>
 
         <!--Center Secton make this a v-for when I have results from API Add space-y-{nitems+1}-->
-        <section class="min-h-screen overflow-y-auto px-6  mx-auto space-y-4 w-1/2 mt-8 no-scrollbar">
+        <section class="min-h-screen overflow-y-auto px-6  mx-auto space-y-4 w-7/12 mt-8 no-scrollbar">
             <PostSection v-if="activeSection === 'posts'" ></PostSection>
+            
+                <!--CONSIDER MAKING THIS A NEW ROUTE-->
             <SearchSection v-if="activeSection === 'search'"></SearchSection>
         </section>
         <!--Right Section / mini profile and idk-->
-        <section class="flex flex-col items-center w-1/4">
+        <section class="flex flex-col items-center w-3/12">
             <SearchBar class="pt-2 pb-2"></SearchBar>
             <ProfileCard :user_image="user_image" :username="username" :email="mail"></ProfileCard>
             <NotificationsCard></NotificationsCard>
@@ -81,12 +83,13 @@ export default {
             product_name: 'Product Name',
             price: 999,
             product_description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
-            activeSection: 'search',
+            activeSection: 'posts',
         };
     },
     methods: {
         logout: function () {
             alert("Loging out");
+            this.$router.push("/login");
         }
     }
 };

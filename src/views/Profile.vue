@@ -1,7 +1,7 @@
 <template>
-    <body class="min-h-screen overflow-hidden bg-background flex divide-x divide-white ">
+    <body class="bg-background flex divide-x divide-white ">
         <!--Left Menu Section -->
-        <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-1/5 bg-transparent h-screen max-w-s">
+        <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-2/12  h-screen max-w-s overflow-y-auto">
             <div class="text-white pr-10 py-1 h-auto w-auto">
                 <div class="flex items-center mb-6 text-2xl font-semibold text-white">
                     <img class="w-8 h-8 mr-2 " src="src\assets\appLogo.svg" alt="logo">
@@ -13,11 +13,11 @@
                         <font-awesome-icon icon="fa-solid fa-house" class="mr-4 h-6 w-6" />
                         Home
                     </router-link>
-                    <a href="#"
+                    <router-link to="/messages" href="#"
                         class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-medium rounded-full hover:bg-primary hover:text-black">
                         <font-awesome-icon icon="fa-solid fa-message" class="mr-4 h-6 w-6" />
                         Messages
-                    </a>
+                    </router-link>
                     <a href="#"
                         class="mt-2 group flex items-center px-2 py-3 text-lg leading-6 font-bold rounded-full bg-primary text-black">
                         <font-awesome-icon icon="fa-solid fa-user" class="mr-4 h-6 w-6" />
@@ -37,7 +37,7 @@
             </div>
         </section>
         <!--Right/center/Main Section -->
-        <section class=" w-4/5 ">
+        <section class=" w-10/12 overflow-y-auto ">
             <div class="flex flex-row mb-2 mt-6 ">
                 <img class="w-1/6 h-1/6 mb-3 rounded-full shadow-lg" src="https://freesvg.org/img/abstract-user-flat-4.png"
                     alt="User image" />
@@ -54,18 +54,30 @@
             </div>
 
             <!--Tabs navigation-->
-            <ul class="mb-5 flex list-none flex-row flex-wrap pl-0 p-1 pt-4">
-                <li class="flex-auto text-center border-t-2 border-lightPrimary ml-6">
+            <ul class="mb-5 flex list-none flex-row flex-wrap pl-0 p-1 pt-4 ">
+                <li class="flex-auto text-center border-t-2 border-lightPrimary ml-6 ">
                     <a href="#" @click="changeTab('wishlist')" class="inline-block  p-4 uppercase"
                         :class="{ 'border-transparent text-white': active_tab != 'wishlist', 'border-t-4 border-primary text-primary': active_tab === 'wishlist' }">Wishlists</a>
                 </li>
                 <li class="flex-auto text-center   border-t-2 border-lightPrimary mr-6">
-                    <a href="#" @click="changeTab('friends')" class="inline-block p-4   active uppercase"
+                    <a href="#" @click="changeTab('friends')" class="inline-block p-4  uppercase"
                         :class="{ 'border-transparent text-white': active_tab != 'friends', 'border-t-4 border-primary text-primary': active_tab === 'friends' }">Friends</a>
                 </li>
             </ul>
             <!--Tabs-->
-            <div v-if="active_tab === 'wishlist'" class=" grid grid-cols-3  gap-2  justify-around ml-10 mb-6">
+            <div v-if="active_tab === 'wishlist'" class=" grid grid-cols-3  gap-3 justify-items-center  mb-6">
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
+                <WishlistCard class="" />
                 <WishlistCard class="" />
                 <WishlistCard class="" />
                 <WishlistCard class="" />
@@ -73,7 +85,19 @@
                 <WishlistCard class="" />
                 <WishlistCard class="" />
             </div>
-            <div v-if="active_tab === 'friends'" class=" grid grid-cols-3  gap-2  justify-around ml-10 mb-6">
+            <div v-if="active_tab === 'friends'" class=" grid grid-cols-3  gap-3  justify-items-center mb-6 ">
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
+                <FriendCard class="" />
                 <FriendCard class="" />
                 <FriendCard class="" />
                 <FriendCard class="" />
@@ -103,6 +127,7 @@ export default {
         },
         logout: function () {
             alert("Loging out");
+            this.$router.push("/login");
         }
     },
     components: { FriendCard, WishlistCard }

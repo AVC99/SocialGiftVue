@@ -18,7 +18,7 @@
         </ul>
 
         <!--Tabs-->
-        <div v-if="active_tab === 'users'" class=" flex flex-col gap-2 items-center w-full mb-6  overflow-y-auto px-6 no-scrollbar">
+        <div v-if="active_tab === 'users'" class=" grid grid-cols-2 gap-2 justify-items-center w-full mb-6 overflow-y-auto no-scrollbar">
            <UserCard></UserCard>
            <UserCard></UserCard>
            <UserCard></UserCard>
