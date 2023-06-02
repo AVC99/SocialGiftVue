@@ -1,7 +1,7 @@
 <template>
-    <div class="max-w-lg rounded-xl overflow-hidden shadow-lg bg-tertiary">
+    <div class="max-w-lg rounded-xl overflow-hidden shadow-lg bg-tertiary border-2 border-gray-700">
         <!--Cart title with profile picture and username-->
-        <div>
+       
             <div class="flex items-center">
                 <div class="flex-shrink-0 px-1 py-1">
                     <img class="h-12 w-12 rounded-full"
@@ -13,7 +13,7 @@
                     <div class="text-sm font-medium text-gray-400">{{ email }} </div>
                 </div>
             </div>
-        </div>
+        
 
         <img class="w-full rounded-xl"
             :src="product_image"

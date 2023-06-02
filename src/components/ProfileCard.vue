@@ -1,5 +1,5 @@
 <template>
-    <div class=" w-4/5 bg-tertiary border border-gray-700 rounded-lg shadow ">
+    <div class=" w-4/5 bg-tertiary border border-gray-700 rounded-2xl shadow ">
         <div class="flex flex-col items-center pb-10 pt-10">
             <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
                 :src="user_image"

@@ -53,8 +53,7 @@
 
             </div>
 
-
-            <!--Tabs navigation Maybe add top border to separate better the user information with the user wishlist and friends-->
+            <!--Tabs navigation-->
             <ul class="mb-5 flex list-none flex-row flex-wrap pl-0 p-1 pt-4">
                 <li class="flex-auto text-center border-t-2 border-lightPrimary ml-6">
                     <a href="#" @click="changeTab('wishlist')" class="inline-block  p-4 uppercase"

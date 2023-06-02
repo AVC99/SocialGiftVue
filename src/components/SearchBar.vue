@@ -16,5 +16,4 @@
 export default {
     name: 'SearchBar',
 }
-
 </script>

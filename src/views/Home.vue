@@ -41,20 +41,11 @@
 
         <!--Center Secton make this a v-for when I have results from API Add space-y-{nitems+1}-->
         <section class="min-h-screen overflow-y-auto px-6  mx-auto space-y-4 w-1/2 mt-8 no-scrollbar">
-            <div class="flex flex-col items-center space-y-4">
-                <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-                :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-                <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-                :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-                <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-                :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-                <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-                :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-            </div>
-           
+            <PostSection v-if="activeSection === 'posts'" ></PostSection>
+            <SearchSection v-if="activeSection === 'search'"></SearchSection>
         </section>
         <!--Right Section / mini profile and idk-->
-        <section class="flex flex-col items-center w-1/4 bg-green-500">
+        <section class="flex flex-col items-center w-1/4">
             <SearchBar class="pt-2 pb-2"></SearchBar>
             <ProfileCard :user_image="user_image" :username="username" :email="mail"></ProfileCard>
             <NotificationsCard></NotificationsCard>
@@ -67,6 +58,8 @@ import HomePost from '../components/HomePost.vue';
 import ProfileCard from '../components/ProfileCard.vue';
 import SearchBar from '../components/SearchBar.vue';
 import NotificationsCard from '../components/NotificationsCard.vue';
+import PostSection from '../components/PostSection.vue';
+import SearchSection from '../components/SearchSection.vue';
 
 
 export default {
@@ -74,8 +67,10 @@ export default {
     components: {
         HomePost,
         ProfileCard,
-        SearchBar, 
-        NotificationsCard
+        SearchBar,
+        NotificationsCard,
+        PostSection,
+        SearchSection,
     },
     data() {
         return {
@@ -85,7 +80,8 @@ export default {
             product_image: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-deeppurple?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1663703841896',
             product_name: 'Product Name',
             price: 999,
-            product_description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.'
+            product_description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+            activeSection: 'search',
         };
     },
     methods: {
