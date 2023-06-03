@@ -11,8 +11,7 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Log in
                     </h1>
-                    <form @submit.prevent="login"></form>
-                    <form class="space-y-4 md:space-y-6" action="#">
+                    <form @submit.prevent="login" class="space-y-4 md:space-y-6">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-white ">
                                 Your email</label>
@@ -54,7 +53,9 @@ export default {
         };
     },
     methods: {
-        login() {
+       
+
+       login() {
             const userInfo = JSON.stringify({
                 email: this.email,
                 password: this.password
@@ -86,14 +87,15 @@ export default {
                         .then((response2) => {
                             // looking for the user id with the email and the acces token
                             for (const d of response2.data) {
+                                console.log(d.email); 
+
                                 if (d.email === this.email) {
                                     localStorage.setItem('userId', d.id);
                                     localStorage.setItem('accessToken', response.data.accessToken);
+                                    console.log("logging in");
                                     this.$router.push('/');
                                 }
                             }
-
-                            alert("Username or Password incorrect");
 
                         })
                         .catch((error) => {

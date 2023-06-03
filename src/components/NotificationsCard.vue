@@ -5,14 +5,8 @@
             Notifications </span>
 
         <div class="w-full bg-secondary space-y-2 h-4/5  rounded-xl p-2 mt-4 overflow-y-auto no-scrollbar border border-gray-800">
-           <Notification></Notification>
-           <Notification></Notification>
-           <Notification></Notification>
-           <Notification></Notification>
-           <Notification></Notification>
-           <Notification></Notification>
-           <Notification></Notification>
-           <Notification></Notification>
+           <Notification v-for="(request, index) in requestList" :key="index" :user="request"></Notification>
+          
         </div>
 
     </div>
@@ -21,10 +15,26 @@
 <script>
 import Notification from '../components/Notification.vue';
 
+
+
 export default {
     name: 'NotificationsCard',
     components: {
         Notification
-    }
+    },
+    props: {
+        requestList: {
+            type: Object,
+            required: true,
+            default: () => {
+                return {
+                    user_image: 'https://freesvg.org/img/abstract-user-flat-4.png',
+                    name: 'Username',
+                    email: 'email',
+                }
+            }
+        },
+
+    },
 }
 </script>

@@ -23,7 +23,7 @@
                         <div>
                             <label for="Last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
                                 name</label>
-                            <input type="Last_name" name="Last_name" id="Last_name" v-model="Last_name"
+                            <input type="Last_name" name="Last_name" id="Last_name" v-model="last_name"
                                 class="bg-tertiary placeholder-gray-400 text-white sm:text-sm rounded-xl block w-full p-2.5"
                                 placeholder="Last name" required>
                         </div>
@@ -97,11 +97,20 @@ export default {
 
             axios.request(config)
                 .then((response) => {
-                    //reddirect to login
+                    if (response.status != 201) {
+                        this.error = response.data.message;
+                        return;
+                    }else if (response.status == 201) {
+                         //reddirect to login
+                    console.log(JSON.stringify(response.data));
+                  
                     this.$router.push('/login');
-                    alert('User created successfully ! Username: ' + response.name);
+                    }
+                 
+                   
                 })
                 .catch((error) => {
+                    console.log(error);
                     this.error = error.response.data.message;
                 });
         },

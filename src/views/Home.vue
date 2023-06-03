@@ -41,16 +41,16 @@
 
         <!--Center Secton make this a v-for when I have results from API Add space-y-{nitems+1}-->
         <section class="min-h-screen overflow-y-auto px-6  mx-auto space-y-4 w-7/12 mt-8 no-scrollbar">
-            <PostSection v-if="activeSection === 'posts'" ></PostSection>
-            
-                <!--CONSIDER MAKING THIS A NEW ROUTE-->
+            <PostSection v-if="activeSection === 'posts'"></PostSection>
+
+            <!--CONSIDER MAKING THIS A NEW ROUTE-->
             <SearchSection v-if="activeSection === 'search'"></SearchSection>
         </section>
         <!--Right Section / mini profile and idk-->
         <section class="flex flex-col items-center w-3/12">
             <SearchBar class="pt-2 pb-2"></SearchBar>
             <ProfileCard :user_image="user_image" :username="username" :email="mail"></ProfileCard>
-            <NotificationsCard></NotificationsCard>
+            <NotificationsCard :requestList="requestList"></NotificationsCard>
         </section>
     </body>
 </template>
@@ -63,6 +63,8 @@ import NotificationsCard from '../components/NotificationsCard.vue';
 import PostSection from '../components/PostSection.vue';
 import SearchSection from '../components/SearchSection.vue';
 
+import axios from 'axios';
+
 
 export default {
     name: 'Home',
@@ -74,11 +76,72 @@ export default {
         PostSection,
         SearchSection,
     },
+    async created() {
+        const token = localStorage.getItem('accessToken');
+        const userId = localStorage.getItem('userId');
+       
+        if (!token) {
+            console.log('No token');
+            this.$router.push("/login");
+        } else {
+            //Get the user information 
+            try {
+                let config = {
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/' + userId,
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                };
+                axios.request(config)
+                    .then((response) => {
+
+                        this.user_image = response.data.image;
+                        this.username = response.data.name;
+                        this.mail = response.data.email;
+
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
+
+            } catch (error) {
+                console.log(error);
+            }
+
+            //Get the user Notifications
+            try{
+                let requestList = [];
+                let config = {
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/requests',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                };
+                axios.request(config)
+                    .then((response) => {
+                        for(let request of response.data){
+                            requestList.push(request);
+                        }
+                        this.requestList=requestList;
+                        console.log(this.requestList);
+                    }).catch(function (error) {
+                        console.error(error);
+                    });
+            }catch(error){
+                console.log(error);
+            }
+        }
+
+    },
     data() {
         return {
-            user_image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80',
-            username: 'Username',
-            mail: 'mail@mail.com',
+            user_image: null,
+            username: null,
+            mail: null,
+            requestList: null,
             product_image: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-deeppurple?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1663703841896',
             product_name: 'Product Name',
             price: 999,
@@ -89,6 +152,9 @@ export default {
     methods: {
         logout: function () {
             alert("Loging out");
+            //Remove the token from the local storage
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userId');
             this.$router.push("/login");
         }
     }

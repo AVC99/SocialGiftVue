@@ -2,9 +2,9 @@
     <div class=" w-4/5 bg-tertiary border border-gray-700 rounded-2xl shadow ">
         <div class="flex flex-col items-center pb-10 pt-10">
             <!-- User information -->
-            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" :src="user_image" alt="User image" />
-            <h1 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ username }}</h1>
-            <span class="text-sm text-gray-500 dark:text-gray-400">{{ email }}</span>
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" :src="image" alt="User image" />
+            <h1 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{ user.name }}</h1>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</span>
             <!-- Buttons -->
             <div class="flex flex-row mt-2 space-x-2">
                 <button class="rounded-full bg-primary text-bl p-2 ">
@@ -25,20 +25,18 @@
 export default {
     name: 'UserCard',
     props: {
-        user_image: {
-            type: String,
-            default: 'https://freesvg.org/img/abstract-user-flat-4.png'
+        user: {
+            type: Object,
+            required: true,
+            default: () => {
+                return {
+                    user_image: 'https://freesvg.org/img/abstract-user-flat-4.png',
+                    name: 'Username',
+                    email: 'email',
+                }
+            }
         },
-        username: {
-            type: String,
-            default: 'Username',
-            required: true
-        },
-        email: {
-            type: String,
-            default: 'email',
-            required: true
-        }
+
     }
 }
 </script>

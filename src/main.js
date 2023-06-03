@@ -12,7 +12,7 @@ import { faHouse, faUser, faBell, faMessage, faRightFromBracket, faPlus,
 
 library.add(faHouse,faUser, faBell,faMessage,faRightFromBracket, faPlus,
      faEllipsisV, faMagnifyingGlass, faUserMinus, faEye, faPenToSquare, faUserPlus,
-        faArrowLeft, faCheck, faXmark     );
+        faArrowLeft, faCheck, faXmark );
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);
