@@ -67,7 +67,7 @@ export async function declineRequest(requestId) {
     axios.request(config)
     .then((response) => {
       if(response.status === 200) {
-        alert("Friend request declined");
+        alert("Friend request declined / friend removed");
       }
     })
     .catch((error) => {

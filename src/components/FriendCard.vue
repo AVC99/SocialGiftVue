@@ -6,7 +6,7 @@
                 alt="User image" />
             <h1 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{user.name}}</h1>
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ user.email }}</span>
-            <button class="rounded-full bg-primary text-black p-2 mt-2">
+            <button @click="removeFriend" class="rounded-full bg-primary text-black p-2 mt-2">
                 <font-awesome-icon icon="fa-solid fa-user-minus" class=" h-4 w-4 " />
                 Remove Friend
             </button>
@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import { declineRequest } from '../services/friendService';
+
+
 export default {
     name: 'FriendCard',
     props: {
@@ -29,6 +32,11 @@ export default {
                 }
             }
         },
+    }, 
+    methods: {
+        removeFriend(){
+            declineRequest(this.user.id);
+        }
     }
    
 }
