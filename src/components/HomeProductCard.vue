@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    name: 'ProductCard',
+    name: 'HomeProductCard',
     props: {
         product_image: {
             type: String,

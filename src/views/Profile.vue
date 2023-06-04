@@ -29,7 +29,7 @@
                         Logout
                     </a>
                 </nav>
-                <button
+                <button @click="showCreateWishlist = true"
                     class="bg-primary text-l text-black font-bold w-44 mt-6 hover:bg-yellow-500  py-2 px-4 rounded-full">
                     <font-awesome-icon icon="fa-solid fa-plus" class="mr-2 h-4 w-4 -ml-1" />
                     Create Wishlist
@@ -52,6 +52,7 @@
                     Edit Profile
                 </button>
             </div>
+            <!--Edit Profile PopUp-->
             <div v-if="editProfile"
                 class="fixed inset-0 flex flex-col items-center justify-center bg-secondary  z-50 w-1/2 h-3/4 rounded-2xl m-auto ">
                 <button @click="editProfile = false"
@@ -103,7 +104,10 @@
                 </button>
 
             </div>
-
+            <!--Wishlist Display-->
+            <WishlistDisplay v-if="displayWishlist" :wishlist="wishlist" @close="displayWishlist = false" />
+            <!--CREATE WISHLIST MODAL-->
+            <CreateWishlist v-if="showCreateWishlist" @close="showCreateWishlist = false"/>
             <!--Tabs navigation-->
             <ul class="mb-5 flex list-none flex-row flex-wrap pl-0 p-1 pt-4 ">
                 <li class="flex-auto text-center border-t-2 border-lightPrimary ml-6 ">
@@ -118,7 +122,7 @@
             <!--Tabs-->
             <ul v-if="active_tab === 'wishlist'"
                 class=" grid lg:grid-cols-3  gap-3 justify-items-center  mb-6 sm:grid-cols-1 md:grid-cols-2">
-                <WishlistCard v-for="(wishlist, index) in wishlists" :key="index" :wishlist="wishlist" />
+                <WishlistCard v-for="(wishlist, index) in wishlists" :key="index" :wishlist="wishlist" @showWishlist="showWishlist" />
 
 
             </ul>
@@ -133,12 +137,14 @@
 <script>
 import FriendCard from '../components/FriendCard.vue';
 import WishlistCard from '../components/WishlistCard.vue';
+import CreateWishlist from '../components/CreateWishlist.vue'
 
 import { modifyProfile, logout } from '../services/userService.js';
 import {getUserFriends} from '../services/friendService.js';
 import {getUserWishlists} from '../services/wishListServices.js';
 
 import axios from 'axios';
+import WishlistDisplay from '../components/WishlistDisplay.vue';
 
 export default {
     name: "Profile",
@@ -177,11 +183,18 @@ export default {
             }
         },
         logout(){},
+        showWishlist(wishlist) {
+            console.log(wishlist);
+            this.wishlist = wishlist;
+            this.displayWishlist = true;
+        },
     },
     components: {
-        FriendCard,
-        WishlistCard
-    },
+    FriendCard,
+    WishlistCard,
+    CreateWishlist,
+    WishlistDisplay
+},
     async created() {
         const token = localStorage.getItem('accessToken');
         const userId = localStorage.getItem('userId');
@@ -284,9 +297,12 @@ export default {
             last_name: null,
             password: null,
             image_url: null,
-            error: '',
+            error: null,
             wishlists: null,
             friendList: null,
+            showCreateWishlist: false,
+            displayWishlist: false,
+            wishlist: null,
         };
     },
 }

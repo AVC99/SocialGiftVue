@@ -26,28 +26,29 @@
 
         </div>
         <div v-if="active_tab === 'products'" class=" flex flex-col  gap-2 items-center justify-around  w-full  mb-10 overflow-y-auto px-6 no-scrollbar">
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
+          <HomeProductCard></HomeProductCard>
+          <HomeProductCard></HomeProductCard>
+          <HomeProductCard></HomeProductCard>
+          <HomeProductCard></HomeProductCard>
+          <HomeProductCard></HomeProductCard>
+          
         </div>
     </div>
 </template>
 
 <script>
 import UserCard from '../components/UserCard.vue';
-import ProductCard from '../components/ProductCard.vue';
+import HomeProductCard from './HomeProductCard.vue';
 
 export default {
     name: 'SearchSection',
     data() {
         return {
-            active_tab: 'users',
+            active_tab: 'products',
         }
     },
     components: { UserCard,
-        ProductCard },
+        HomeProductCard },
     methods: {
         changeTab(tab) {
             this.active_tab = tab;

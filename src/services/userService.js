@@ -5,7 +5,6 @@ export async function modifyProfile(username, last_name, email, password, image_
   
   try {
     const token = localStorage.getItem('accessToken');
-    console.log('Edit profile');
     const userInfo = JSON.stringify({
       name: username,
       last_name: last_name,

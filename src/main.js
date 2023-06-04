@@ -8,11 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHouse, faUser, faBell, faMessage, faRightFromBracket, faPlus, 
     faEllipsisV, faMagnifyingGlass, faUserMinus, faEye, faPenToSquare, faUserPlus,
-    faArrowLeft, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+    faArrowLeft, faCheck, faXmark, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faHouse,faUser, faBell,faMessage,faRightFromBracket, faPlus,
      faEllipsisV, faMagnifyingGlass, faUserMinus, faEye, faPenToSquare, faUserPlus,
-        faArrowLeft, faCheck, faXmark );
+        faArrowLeft, faCheck, faXmark, faTrash );
+
 
 const app = createApp(App);
 app.component('font-awesome-icon', FontAwesomeIcon);

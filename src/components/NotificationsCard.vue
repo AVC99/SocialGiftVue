@@ -4,9 +4,9 @@
             <font-awesome-icon icon="fa-solid fa-bell" class="mr-4 h-6 w-6" />
             Notifications </span>
 
-        <div class="w-full bg-secondary space-y-2 h-4/5  rounded-xl p-2 mt-4 overflow-y-auto no-scrollbar border border-gray-800">
-           <Notification v-for="(request, index) in requestList" :key="index" :user="request"></Notification>
-          
+        <div
+            class="w-full bg-secondary space-y-2 h-4/5  rounded-xl p-2 mt-4 overflow-y-auto no-scrollbar border border-gray-800">
+            <Notification v-for="(request, index) in requestList" :key="index" :user="request"></Notification>
         </div>
 
     </div>

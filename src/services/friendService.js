@@ -31,13 +31,13 @@ export async function getUserFriends(token) {
 
 export async function acceptRequest(requestId) {
     let token = localStorage.getItem('token');
-    let userId = localStorage.getItem('userId');
+ 
     let config = {
         method: 'put',
         maxBodyLength: Infinity,
         url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/' + requestId,
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDM5LCJlbWFpbCI6Im1hbm9saXRvb1NGQG1haWwuZXMiLCJpYXQiOjE2ODU3NDg4NDl9.7UIuNZ3wF3YshcDMgbBTrfBEUQxQEOAQ2aG89btxIv0'
+            'Authorization': 'Bearer '+token,
         }
     };
 
@@ -55,13 +55,12 @@ export async function acceptRequest(requestId) {
 
 export async function declineRequest(requestId) {
     let token = localStorage.getItem('token');
-    let userId = localStorage.getItem('userId');
     let config = {
         method: 'delete',
         maxBodyLength: Infinity,
         url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/friends/' + requestId,
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDM5LCJlbWFpbCI6Im1hbm9saXRvb1NGQG1haWwuZXMiLCJpYXQiOjE2ODU3NDg4NDl9.7UIuNZ3wF3YshcDMgbBTrfBEUQxQEOAQ2aG89btxIv0'
+            'Authorization': 'Bearer ' + token,
         }
     };
     axios.request(config)

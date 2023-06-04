@@ -1,7 +1,5 @@
 <template>
     <body class="h-screen overflow-hidden bg-background flex divide-x divide-white">
-        <!--Header-->
-        <header></header>
         <!--Left Section / menu Bar -->
         <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-2/12 bg-transparent h-screen max-w-s">
             <div class="text-white pr-10 py-1 h-auto w-auto">
@@ -31,7 +29,7 @@
                         Logout
                     </a>
                 </nav>
-                <button
+                <button @click="showCreateWishlist = true"
                     class="bg-primary text-l text-black font-bold w-44 mt-6 hover:bg-yellow-500  py-2 px-4 rounded-full">
                     <font-awesome-icon icon="fa-solid fa-plus" class="mr-2 h-4 w-4 -ml-1" />
                     Create Wishlist
@@ -41,6 +39,10 @@
 
         <!--Center Secton make this a v-for when I have results from API Add space-y-{nitems+1}-->
         <section class="min-h-screen overflow-y-auto px-6  mx-auto space-y-4 w-7/12 mt-8 no-scrollbar">
+            <!--CREATE WISHLIST MODAL-->
+            <CreateWishlist v-if="showCreateWishlist" @close="showCreateWishlist = false"/>
+
+            <!--POSTS SECTION-->
             <PostSection v-if="activeSection === 'posts'"></PostSection>
 
             <!--CONSIDER MAKING THIS A NEW ROUTE-->
@@ -62,6 +64,7 @@ import SearchBar from '../components/SearchBar.vue';
 import NotificationsCard from '../components/NotificationsCard.vue';
 import PostSection from '../components/PostSection.vue';
 import SearchSection from '../components/SearchSection.vue';
+import CreateWishlist from '../components/CreateWishlist.vue';
 
 import axios from 'axios';
 
@@ -75,6 +78,7 @@ export default {
         NotificationsCard,
         PostSection,
         SearchSection,
+        CreateWishlist,
     },
     async created() {
         const token = localStorage.getItem('accessToken');
@@ -147,6 +151,8 @@ export default {
             price: 999,
             product_description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
             activeSection: 'posts',
+            showCreateWishlist: false,
+
         };
     },
     methods: {
