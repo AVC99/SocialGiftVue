@@ -36,7 +36,7 @@ const routes = [
             component: NotImplemented,
         },
         {
-            path: '/friend',
+            path: '/friend/:id',
             name: 'friend',
             component: Friend,
             props:true,

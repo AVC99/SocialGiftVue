@@ -4,7 +4,7 @@
         <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-2/12  h-screen max-w-s overflow-y-auto">
             <div class="text-white pr-10 py-1 h-auto w-auto">
                 <div class="flex items-center mb-6 text-2xl font-semibold text-white">
-                    <img class="w-8 h-8 mr-2 " src="src\assets\appLogo.svg" alt="logo">
+                    <img class="w-8 h-8 mr-2 " src=".\src\assets\appLogo.svg" alt="logo">
                     Social Gift
                 </div>
                 <nav class="mt-5 px-1">
@@ -47,25 +47,25 @@
                 </div>
                 <!--Edit Profile Button TODO: place button correctly-->
                 <button @click='addFriend' class="rounded-full bg-primary text-black mt-auto mx-4 p-4 drop-shadow-2xl ">
-                    <font-awesome-icon icon="fa-solid fa-pen-to-square" class=" h-4 w-4 " />
+                    <font-awesome-icon icon="fa-solid fa-user-plus" class=" h-4 w-4 " />
                     Add Friend
                 </button>
             </div>
 
             <!--Wishlist Display-->
-            <WishlistDisplay :wishlist="wishlist" @close="displayWishlist = false" >DISPLAY WISH</WishlistDisplay>
+            <WishlistDisplayF v-if="displayWishlist" :wishlist="wishlist" @close="displayWishlist = false" ></WishlistDisplayF>
             <!--CREATE WISHLIST MODAL-->
             <CreateWishlist v-if="showCreateWishlist" @close="showCreateWishlist = false" >CREATE WISH</CreateWishlist>
             <!--Tabs navigation-->
             <ul class="mb-5 flex list-none flex-row flex-wrap pl-0 p-1 pt-4 ">
                 <li class="flex-auto text-center border-t-2 border-lightPrimary ml-6 ">
-                    <a href="#" class="inline-block  p-4 uppercase border-t-4 border-primary text-primary'}">Wishlists</a>
+                    <span class="inline-block  p-4 uppercase border-t-4 border-primary text-primary ">Wishlists</span>
                 </li>
 
             </ul>
             <!--Tabs-->
             <ul class=" grid lg:grid-cols-3  gap-3 justify-items-center  mb-6 sm:grid-cols-1 md:grid-cols-2">
-                <WishlistCard v-for="(wishlist, index) in wishlists" :key="index" :wishlist="wishlist"
+                <FriendWishlistCard v-for="(wishlist, index) in wishlists" :key="index" :wishlist="wishlist"
                     @showWishlist="showWishlist" />
             </ul>
 
@@ -75,13 +75,13 @@
 
 
 <script>
-import WishlistCard from '../components/WishlistCard.vue';
+import FriendWishlistCard from '../components/FriendWishlistCard.vue';
 import CreateWishlist from '../components/CreateWishlist.vue'
-import WishlistDisplay from '../components/WishlistDisplay.vue';
+import WishlistDisplayF from '../components/WishlistDisplayF.vue';
 
 import { logout } from '../services/userService.js';
 
-import { getUserWishlists } from '../services/wishListServices.js';
+
 
 import axios from 'axios';
 
@@ -106,14 +106,13 @@ export default {
         }
     },
     components: {
-        WishlistCard,
+        FriendWishlistCard,
         CreateWishlist,
-        WishlistDisplay
+        WishlistDisplayF
     },
     async created() {
         const token = localStorage.getItem('accessToken');
         const userId = this.id;
-        //TODO: get user id from url
         console.log(userId);
         if (!token) {
             console.log('No token');
