@@ -2,59 +2,56 @@ import axios from 'axios'
 
 
 export async function getAllWishlists() {
-  
+
   let token = localStorage.getItem('accessToken');
-  
+
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
     url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists',
-    headers: { 
-      'Authorization': 'Bearer '+ token,
+    headers: {
+      'Authorization': 'Bearer ' + token,
     }
   };
-  
+
   return axios.request(config)
-  .then((response) => {
-    if(response.status === 200) {
-      return response.data;
-    }
-    
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data;
+      }
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 
 export async function getUserWishlists() {
   try {
-    const token = localStorage.getItem('accessToken');
     const userId = localStorage.getItem('userId');
-    const wishlists = await new Promise((resolve, reject) => {
-      let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        }
-      };
 
-      axios.request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
-          const filteredWishlists = response.data.filter(wishlist => wishlist.user_id === userId);
-          console.log('External js w', filteredWishlists);
-          resolve(filteredWishlists);
-        })
-        .catch((error) => {
-          console.error(error);
-          reject(error);
-        });
-    });
-    console.log('External js w', wishlists);
-    return wishlists;
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+      }
+    };
+
+    return axios.request(config)
+      .then((response) => {
+        if (response.status === 200) {
+          const filteredWishlists = response.data.filter(wishlist => wishlist.user_id == userId);
+          return filteredWishlists;
+        }
+        
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error);
+      });
   } catch (error) {
     console.log(error);
     throw error;
@@ -67,7 +64,7 @@ export async function createWishlist(name, description, end_date) {
 
   //Format the date to the correct format in the sql database
   const formatedDate = new Date(end_date).toISOString();
-  
+
   const data = JSON.stringify({
     name: name,
     description: description,
@@ -119,47 +116,47 @@ export async function deleteWishlist(wishlistId) {
   });
 }
 
-export async function getWishlistById(wishlistId){
+export async function getWishlistById(wishlistId) {
   let token = localStorage.getItem('accessToken');
 
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
     url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/' + wishlistId,
-    headers: { 
+    headers: {
       'Authorization': 'Bearer ' + token,
     }
   };
 
   axios.request(config)
-.then((response) => {
-  return response.data;
-})
-.catch((error) => {
-  console.log(error);
-});
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 
 export async function removeProductFromWishlist(wishlistId, productId) {
   let token = localStorage.getItem('accessToken');
 
-  let wishtlist= await getUserWishlists();
+  let wishtlist = await getUserWishlists();
   console.log(wishtlist);
   wishlist.gifts = wishlist.gifts.filter(gift => gift.id !== productId);
 
 
-  let data = JSON.stringify({wishtlist});
+  let data = JSON.stringify({ wishtlist });
 
   let config = {
     method: 'put',
     maxBodyLength: Infinity,
-    url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/' + wishlistId ,
+    url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists/' + wishlistId,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
     },
-    data:data,
+    data: data,
   };
 
   axios.request(config).then((response) => {

@@ -39,14 +39,16 @@
 
         <!--Center Secton make this a v-for when I have results from API Add space-y-{nitems+1}-->
         <section class="min-h-screen overflow-y-auto px-6  mx-auto space-y-4 w-7/12 mt-8 no-scrollbar">
+
             <!--CREATE WISHLIST MODAL-->
-            <CreateWishlist v-if="showCreateWishlist" @close="showCreateWishlist = false"/>
+            <CreateWishlist v-if="showCreateWishlist" @close="showCreateWishlist = false" />
 
             <!--POSTS SECTION-->
-            <PostSection v-if="activeSection === 'posts'" :friendsList="completeFriends"></PostSection>
+            <PostSection v-if="activeSection === 'posts'" :friendsList="this.completeFriends"></PostSection>
 
             <!--CONSIDER MAKING THIS A NEW ROUTE-->
-            <SearchSection v-if="activeSection === 'search'" @goBackToPostsSection="changeSection" :searchQuery="searchQuery"></SearchSection>
+            <SearchSection v-if="activeSection === 'search'" @goBackToPostsSection="changeSection"
+                :searchQuery="searchQuery"></SearchSection>
         </section>
         <!--Right Section / mini profile and idk-->
         <section class="flex flex-col items-center w-3/12">
@@ -69,7 +71,8 @@ import CreateWishlist from '../components/CreateWishlist.vue';
 import axios from 'axios';
 
 import { getUserFriends } from '../services/friendService';
-import {getAllWishlists} from '../services/wishListServices.js';
+import { getAllWishlists } from '../services/wishListServices.js';
+import SelectWishlist from '../components/SelectWishlist.vue';
 
 export default {
     name: 'Home',
@@ -81,11 +84,12 @@ export default {
         PostSection,
         SearchSection,
         CreateWishlist,
+        SelectWishlist
     },
-    async created() {
+     async created() {
         const token = localStorage.getItem('accessToken');
         const userId = localStorage.getItem('userId');
-       
+
         if (!token) {
             console.log('No token');
             this.$router.push("/login");
@@ -115,7 +119,7 @@ export default {
                 console.log(error);
             }
             //Get the user Notifications
-            try{
+            try {
                 let requestList = [];
                 let config = {
                     method: 'get',
@@ -127,34 +131,35 @@ export default {
                 };
                 axios.request(config)
                     .then((response) => {
-                        for(let request of response.data){
+                        for (let request of response.data) {
                             requestList.push(request);
                         }
-                        this.requestList=requestList; 
+                        this.requestList = requestList;
                     }).catch(function (error) {
                         console.error(error);
                     });
-            }catch(error){
+            } catch (error) {
                 console.log(error);
             }
 
-            try{
+            try {
                 // get User friends
                 const friends = await getUserFriends(token);
                 const allWishlists = await getAllWishlists(token);
 
-                for(let friend of friends){
+                for (let friend of friends) {
                     friend.items = [];
-                    for(let wishlist of allWishlists){
-                        if(wishlist.user_id === friend.id){
+                    for (let wishlist of allWishlists) {
+                        if (wishlist.user_id === friend.id) {
                             friend.items.push(wishlist.gifts);
                         }
                     }
                     friend.items = friend.items.flat();
-                    this.completeFriends.push(friend); 
+                    this.completeFriends.push(friend);
+                    console.log(this.completeFriends);
                 }
-            
-            }catch(error){
+
+            } catch (error) {
                 console.log(error);
             }
 
@@ -166,11 +171,11 @@ export default {
             user_image: '',
             username: '',
             mail: '',
-            requestList:[],
+            requestList: [],
             activeSection: 'posts',
             showCreateWishlist: false,
-            completeFriends:[],
-            searchQuery:'a',
+            completeFriends: [],
+            searchQuery: '',
 
         };
     },
@@ -181,14 +186,13 @@ export default {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('userId');
             this.$router.push("/login");
-        }, 
-       changeSection(){
+        },
+        changeSection() {
             this.activeSection = 'posts';
-        }, 
-        setSearchQuery(query){
+        },
+        setSearchQuery(query) {
             this.activeSection = 'search';
-            this.searchQuery=query;
-            console.log(this.searchQuery);
+            this.searchQuery = query;
         }
     }
 };

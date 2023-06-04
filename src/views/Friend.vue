@@ -4,7 +4,7 @@
         <section class="flex flex-col items-end px-1 py-8 mx-auto space-y-5 w-2/12  h-screen max-w-s overflow-y-auto">
             <div class="text-white pr-10 py-1 h-auto w-auto">
                 <div class="flex items-center mb-6 text-2xl font-semibold text-white">
-                    <img class="w-8 h-8 mr-2 " src=".\src\assets\appLogo.svg" alt="logo">
+                    <img class="w-8 h-8 mr-2 " src="src\assets\appLogo.svg" alt="logo">
                     Social Gift
                 </div>
                 <nav class="mt-5 px-1">
