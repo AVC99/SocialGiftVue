@@ -45,7 +45,6 @@ export default {
             axios.request(config)
                 .then((response) => {
                     if (response.status === 200) {
-                        console.log("Gift retrieved");
                         this.gift = response.data;
                     }
                 })

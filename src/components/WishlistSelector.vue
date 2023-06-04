@@ -35,8 +35,6 @@ export default {
     methods: {
         async addToWishlist() {
             try {
-                console.log(this.wishlist.id);
-                console.log(this.productId);
                 await postGiftByID(this.wishlist.id ,this.productId, 1).then(() => {
                     alert("Product added to wishlist!");
                 });

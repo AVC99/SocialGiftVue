@@ -40,14 +40,10 @@ export default {
     },
     methods: {
        async addFriend() {
-            console.log("Add friend");
-            console.log(this.user.id);
            await sendFriendRequest(this.user.id);
 
         },
         friendProfile() {
-            console.log("Friend profile");
-            console.log(this.user.id);
             this.$router.push({ name: 'friend', params: { id: this.user.id } });
         }
     }

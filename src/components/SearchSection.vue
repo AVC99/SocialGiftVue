@@ -74,12 +74,10 @@ export default {
     },
     methods: {
        async  changeTab(tab) {
-            console.log(this.searchQuery)
             if(tab === 'users') {
               this.usersList = await searchUsers(this.searchQuery)
             } else {
                 this.productList = await searchProducts(this.searchQuery)
-                console.log(this.productList)
             }
             this.active_tab = tab;
         },
@@ -87,10 +85,8 @@ export default {
             this.$emit('goBackToPostsSection');
         },
         handleSaveGift(product_id){
-            console.log("handleSaveGift");
             this.productId = product_id;
             this.showWishlistSelector=true;
-            console.log(this.productId);
         }
     },
 }

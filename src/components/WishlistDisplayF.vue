@@ -25,8 +25,6 @@
         },
         async created() {
             this.gifts = this.wishlist.gifts;
-            console.log(this.wishlist.gifts);
-            console.log(this.gifts);
         },
         props: {
             wishlist: {

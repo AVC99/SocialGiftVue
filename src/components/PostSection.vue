@@ -42,7 +42,6 @@ export default {
                     axios.request(config) 
                         .then((response) => {
                             if (response.status === 200) { 
-                                console.log("Gift retrieved");
                                 this.friendsList[i].items[j].product_image = response.data.photo;
                                 this.friendsList[i].items[j].product_name = response.data.name;
                                 this.friendsList[i].items[j].price = response.data.price;
@@ -85,10 +84,8 @@ export default {
     },
     methods:{
         handleSaveGift(product_id){
-            console.log("handleSaveGift");
             this.productId = product_id;
             this.showWishlistSelector=true;
-            console.log(this.productId);
         }
     }
     
