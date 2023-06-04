@@ -79,8 +79,6 @@ import FriendWishlistCard from '../components/FriendWishlistCard.vue';
 import CreateWishlist from '../components/CreateWishlist.vue'
 import WishlistDisplayF from '../components/WishlistDisplayF.vue';
 
-import { logout } from '../services/userService.js';
-
 
 
 import axios from 'axios';
@@ -97,6 +95,12 @@ export default {
             console.log(wishlist);
             this.wishlist = wishlist;
             this.displayWishlist = true;
+        },
+        logout() {
+            alert("Loging out");
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userId');
+            this.$router.push("/login");
         },
     },
     props: {

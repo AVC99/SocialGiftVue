@@ -6,10 +6,10 @@
             <div class="font-bold text-primary text-l mb-2">{{ price }}€</div>
             <p class="text-white text-base"> {{ product_description }}</p>
         </div>
-        <button
+        <button @click="addToWishlist"
             class="items-center bg-primary rounded-full px-3 py-1 w-full text-l font-semibold text-black">
             <font-awesome-icon icon="fa-solid fa-plus" class="mr-2 h-4 w-4" />
-            Add to wishlist</button>
+            Add to wishlist </button>
 
     </div>
 </template>
@@ -37,6 +37,15 @@ export default {
             type: String,
             required: true,
             default: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus',
+        },
+        product_id: {
+            type: Number,
+            required: true,
+        },
+    },
+    methods: {
+        addToWishlist() {
+            this.$emit('saveGift', this.product_id);
         }
     }
 };

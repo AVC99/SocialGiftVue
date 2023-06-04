@@ -139,9 +139,8 @@ import FriendCard from '../components/FriendCard.vue';
 import WishlistCard from '../components/WishlistCard.vue';
 import CreateWishlist from '../components/CreateWishlist.vue'
 
-import { modifyProfile, logout } from '../services/userService.js';
-import {getUserFriends} from '../services/friendService.js';
-import {getUserWishlists} from '../services/wishListServices.js';
+import { modifyProfile } from '../services/userService.js';
+
 
 import axios from 'axios';
 import WishlistDisplay from '../components/WishlistDisplay.vue';
@@ -182,7 +181,12 @@ export default {
                 console.log(this.error);
             }
         },
-        logout(){},
+        logout () {
+            alert("Loging out");
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userId');
+            this.$router.push("/login");
+        },
         showWishlist(wishlist) {
             console.log(wishlist);
             this.wishlist = wishlist;

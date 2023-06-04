@@ -27,9 +27,9 @@
         <div v-if="active_tab === 'products'"
             class=" flex flex-col  gap-2 items-center justify-around  w-full  mb-10 overflow-y-auto px-6 no-scrollbar">
             <HomeProductCard v-for="product in productList" :product_image="product.photo" :product_name="product.name"
-            :price="product.price" :product_description="product.description"/>
+            :price="product.price" :product_description="product.description" :product_id="product.id" @saveGift="handleSaveGift"/>
              <!--SELECT WISHLIST MODAL-->
-             <SelectWishlist :product-id="2" @close="showWishlistSelector= false " ></SelectWishlist>
+             <SelectWishlist v-if="showWishlistSelector" :productId="productId" @close="showWishlistSelector= false " ></SelectWishlist>
 
         </div>
     </div>
@@ -50,6 +50,8 @@ export default {
             active_tab: 'users',
             userList: [],
             productList: [],
+            showWishlistSelector: false,
+            productId: ''
         }
     },
     async created() {
@@ -83,6 +85,12 @@ export default {
         },
         goBackToPostsSection() {
             this.$emit('goBackToPostsSection');
+        },
+        handleSaveGift(product_id){
+            console.log("handleSaveGift");
+            this.productId = product_id;
+            this.showWishlistSelector=true;
+            console.log(this.productId);
         }
     },
 }

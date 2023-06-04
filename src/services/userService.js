@@ -56,10 +56,3 @@ export async function searchUsers(searchQuery){
     console.log(error);
   });
 }
-
-
-export function logout() {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('userId');
-  router.push('/login');
-}
