@@ -1,35 +1,79 @@
 <template>
     <div class="flex flex-col items-center space-y-4">
 
-        <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-            :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-        <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-            :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-        <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-            :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
-        <HomePost :user_image="user_image" :username="username" :email="mail" :product_image="product_image"
-            :product_name="product_name" :price="price" :product_description="product_description"></HomePost>
+        <HomePost v-for="(display, index) in displayList" :key="index" :user_image="display.image" :username="display.name"
+            :email="display.email" :product_image="display.product_image" :product_name="display.product_name"
+            :price="display.price" :product_description="display.product_description"></HomePost>
+
     </div>
 </template>
 
 <script>
 import HomePost from '../components/HomePost.vue';
+
+import axios from 'axios';
+
 export default {
     data() {
         return {
-            user_image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80',
-            username: 'Username',
-            mail: 'mail@mail.com',
-            product_image: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-deeppurple?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1663703841896',
-            product_name: 'Product Name',
-            price: 999,
-            product_description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+            displayList: [],
+        }
+    },
+    async created() {
+        try {
+            //get the list of friends
+            for (let i = 0; i < this.friendsList.length; i++) {
+                const displayList = this.friendsList[i];
+                for (let j = 0; j < displayList.items.length; j++) {
+                    const url = displayList.items[j].product_url;
+                    //call the api to get the product details
+                    let config = {
+                        method: 'get',
+                        maxBodyLength: Infinity, 
+                        url: url, 
+                        headers: {} 
+                    };
 
+                    axios.request(config) 
+                        .then((response) => {
+                            if (response.status === 200) { 
+                                console.log("Gift retrieved");
+                                this.friendsList[i].items[j].product_image = response.data.photo;
+                                this.friendsList[i].items[j].product_name = response.data.name;
+                                this.friendsList[i].items[j].price = response.data.price;
+                                this.friendsList[i].items[j].product_description = response.data.description;
+                                let displayObject = {
+                                    image: this.friendsList[i].image,
+                                    name: this.friendsList[i].name, 
+                                    email: this.friendsList[i].email,
+                                    product_image: this.friendsList[i].items[j].product_image,
+                                    product_name: this.friendsList[i].items[j].product_name,
+                                    price: this.friendsList[i].items[j].price,
+                                    product_description: this.friendsList[i].items[j].product_description
+                                }
+                                
+                                this.displayList.push(displayObject);
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);    
+                        });
+                } 
+            } 
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    props: {
+        friendsList: {
+            type: Object,
+            required: true
         }
     },
     components: {
         HomePost
-    }
+    },
+    
 }
 
 

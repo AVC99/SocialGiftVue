@@ -24,9 +24,9 @@
             <p class="text-white text-base"> {{ product_description }}</p>
         </div>
         <div class="flex justify-center px-6 pt-4 pb-2 space-x-2">
-            <button
+            <button @click = "gift"
                 class="flex items-center justify-center flex-shrink-0 bg-primary rounded-full px-3 py-1 text-sm font-semibold text-black w-1/2">Gift</button>
-            <button
+            <button @click = "addToWishlist"
                 class="flex items-center justify-center flex-shrink-0 bg-primary rounded-full px-3 py-1 text-sm font-semibold text-black w-1/2">Add
                 to wishlist</button>
         </div>
@@ -39,6 +39,7 @@ export default {
     props: {
         user_image: {
             type: String,
+            required: true,
             default: 'https://freesvg.org/img/abstract-user-flat-4.png'
         },
         username: {
@@ -67,6 +68,14 @@ export default {
         product_description: {
             type: String,
             required: true
+        }
+    }, 
+    methods:{
+        gift(){
+           
+        },
+        addToWishlist(){
+            this.$emit('addToWishlist');
         }
     }
 };

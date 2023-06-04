@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-lg rounded-xl overflow-hidden shadow-lg bg-tertiary border-2 border-gray-700 p-2">
+    <div class="w-full min-w-96 rounded-xl overflow-hidden shadow-lg bg-tertiary border-2 border-gray-700 p-2">
         <img class="w-full rounded-xl" :src="product_image" alt="Product picture">
         <div class="px-6 py-4">
             <div class="font-bold text-white text-xl mb-1">{{ product_name }}</div>

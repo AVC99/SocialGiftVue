@@ -35,6 +35,29 @@ export async function modifyProfile(username, last_name, email, password, image_
   }
 };
 
+
+export async function searchUsers(searchQuery){
+  let token = localStorage.getItem('accessToken');
+  
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/users/search?s='+searchQuery,
+    headers: { 
+      'Authorization': 'Bearer ' + token,
+    }
+  };
+
+  return axios.request(config).then((response) => {
+    if(response.status === 200) {
+      return response.data;
+    }
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+
 export function logout() {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('userId');

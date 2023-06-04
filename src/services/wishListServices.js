@@ -1,5 +1,32 @@
 import axios from 'axios'
 
+
+export async function getAllWishlists() {
+  
+  let token = localStorage.getItem('accessToken');
+  
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'https://balandrau.salle.url.edu/i3/socialgift/api/v1/wishlists',
+    headers: { 
+      'Authorization': 'Bearer '+ token,
+    }
+  };
+  
+  return axios.request(config)
+  .then((response) => {
+    if(response.status === 200) {
+      return response.data;
+    }
+    
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
+
+
 export async function getUserWishlists() {
   try {
     const token = localStorage.getItem('accessToken');

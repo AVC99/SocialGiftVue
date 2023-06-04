@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import Profile from './views/Profile.vue'
+import Friend from './views/Friend.vue'
 import NotImplemented from './views/NotImplemented.vue'
 
 
@@ -33,6 +34,12 @@ const routes = [
             path:'/messages',
             name:'messages',
             component: NotImplemented,
+        },
+        {
+            path: '/friend',
+            name: 'friend',
+            component: Friend,
+            props:true,
         }
         
     ]

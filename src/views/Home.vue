@@ -43,14 +43,14 @@
             <CreateWishlist v-if="showCreateWishlist" @close="showCreateWishlist = false"/>
 
             <!--POSTS SECTION-->
-            <PostSection v-if="activeSection === 'posts'"></PostSection>
+            <PostSection v-if="activeSection === 'posts'" :friendsList="completeFriends"></PostSection>
 
             <!--CONSIDER MAKING THIS A NEW ROUTE-->
-            <SearchSection v-if="activeSection === 'search'"></SearchSection>
+            <SearchSection v-if="activeSection === 'search'" @goBackToPostsSection="changeSection" :searchQuery="searchQuery"></SearchSection>
         </section>
         <!--Right Section / mini profile and idk-->
         <section class="flex flex-col items-center w-3/12">
-            <SearchBar class="pt-2 pb-2"></SearchBar>
+            <SearchBar class="pt-2 pb-2" @getSearchQuery="setSearchQuery"></SearchBar>
             <ProfileCard :user_image="user_image" :username="username" :email="mail"></ProfileCard>
             <NotificationsCard :requestList="requestList"></NotificationsCard>
         </section>
@@ -68,6 +68,8 @@ import CreateWishlist from '../components/CreateWishlist.vue';
 
 import axios from 'axios';
 
+import { getUserFriends } from '../services/friendService';
+import {getAllWishlists} from '../services/wishListServices.js';
 
 export default {
     name: 'Home',
@@ -112,7 +114,6 @@ export default {
             } catch (error) {
                 console.log(error);
             }
-
             //Get the user Notifications
             try{
                 let requestList = [];
@@ -129,29 +130,47 @@ export default {
                         for(let request of response.data){
                             requestList.push(request);
                         }
-                        this.requestList=requestList;
-                        console.log(this.requestList);
+                        this.requestList=requestList; 
                     }).catch(function (error) {
                         console.error(error);
                     });
             }catch(error){
                 console.log(error);
             }
+
+            try{
+                // get User friends
+                const friends = await getUserFriends(token);
+                const allWishlists = await getAllWishlists(token);
+
+                for(let friend of friends){
+                    friend.items = [];
+                    for(let wishlist of allWishlists){
+                        if(wishlist.user_id === friend.id){
+                            friend.items.push(wishlist.gifts);
+                        }
+                    }
+                    friend.items = friend.items.flat();
+                    this.completeFriends.push(friend); 
+                }
+            
+            }catch(error){
+                console.log(error);
+            }
+
         }
 
     },
     data() {
         return {
-            user_image: null,
-            username: null,
-            mail: null,
-            requestList: null,
-            product_image: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-deeppurple?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1663703841896',
-            product_name: 'Product Name',
-            price: 999,
-            product_description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+            user_image: '',
+            username: '',
+            mail: '',
+            requestList:[],
             activeSection: 'posts',
             showCreateWishlist: false,
+            completeFriends:[],
+            searchQuery:'a',
 
         };
     },
@@ -162,6 +181,14 @@ export default {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('userId');
             this.$router.push("/login");
+        }, 
+       changeSection(){
+            this.activeSection = 'posts';
+        }, 
+        setSearchQuery(query){
+            this.activeSection = 'search';
+            this.searchQuery=query;
+            console.log(this.searchQuery);
         }
     }
 };

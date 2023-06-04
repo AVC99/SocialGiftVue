@@ -33,7 +33,6 @@ export default {
         },
     },
     async created() {
-        console.log('PRODUCT :'+ JSON.stringify(this.product));
         try {
           
             let config = {
