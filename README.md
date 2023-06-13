@@ -1,6 +1,6 @@
 # Social Gift
 
-Git link: https://github.com/AVC99/SocialGiftAndroid
+Git link: https://github.com/AVC99/SocialGiftVue
 
 Social App built in VUE.js that consists of sending and reciving gifts.
 
